@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>혜화 3D 크리스마스 케이크 꾸미기</title>
+    <title>혜화 3D 크리스마스 케이크 꾸미기 - 접근성 강화 버전</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -23,40 +23,50 @@
         .active { display: flex; }
 
         #left-sidebar {
-            width: 350px; height: 100%; background-color: #fffde7; border-right: 6px solid #c62828;
+            width: 300px; height: 100%; background-color: #fffde7; border-right: 5px solid #c62828;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 25px; box-sizing: border-box; z-index: 10;
+            padding: 20px; box-sizing: border-box; z-index: 10;
         }
         .notice-board { 
-            background: white; padding: 30px; border-radius: 20px; border: 5px dashed #c62828; 
+            background: white; padding: 25px; border-radius: 20px; border: 4px dashed #c62828; 
             box-shadow: 5px 5px 15px rgba(0,0,0,0.1); width: 100%; box-sizing: border-box;
         }
-        .notice-title { font-size: 32px; color: #c62828; margin-bottom: 25px; text-align: center; border-bottom: 2px solid #eee; padding-bottom: 10px; white-space: nowrap; }
-        .notice-list { font-size: 24px; color: #333; line-height: 1.8; word-break: keep-all; padding: 0; margin: 0; list-style: none; }
-        .notice-list li { margin-bottom: 15px; position: relative; padding-left: 10px; }
+        .notice-title { font-size: 28px; color: #c62828; margin-bottom: 20px; text-align: center; border-bottom: 2px solid #eee; padding-bottom: 8px; white-space: nowrap; }
+        .notice-list { font-size: 20px; color: #333; line-height: 1.6; word-break: keep-all; padding: 0; margin: 0; list-style: none; }
+        .notice-list li { margin-bottom: 12px; position: relative; padding-left: 5px; }
         .highlight-text { color: #d32f2f; font-weight: bold; }
 
-        h1 { font-size: 75px; color: #c62828; margin-bottom: 40px; }
-        #start-btn { padding: 30px 80px; font-size: 55px; cursor: pointer; background: var(--primary-color); color: white; border: none; border-radius: 30px; box-shadow: 0 10px 0 #8e0000; font-family: var(--font-cute); }
-        #start-btn:active { transform: translateY(5px); box-shadow: none; }
+        h1 { font-size: 60px; color: #c62828; margin-bottom: 30px; }
+        #start-btn { padding: 25px 60px; font-size: 45px; cursor: pointer; background: var(--primary-color); color: white; border: none; border-radius: 30px; box-shadow: 0 8px 0 #8e0000; font-family: var(--font-cute); }
         
-        .cake-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .cake-option { width: 220px; height: 220px; background: white; border-radius: 25px; border: 6px solid #eee; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; transition: 0.2s; }
-        .cake-option span { font-size: 80px; }
+        .cake-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .cake-option { width: 200px; height: 200px; background: white; border-radius: 25px; border: 6px solid #eee; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; transition: 0.2s; }
+        .cake-option span { font-size: 70px; }
 
-        .top-controls { position: absolute; top: 20px; right: 20px; display: flex; gap: 15px; z-index: 50; }
-        .palette { background: white; padding: 12px 20px; border-radius: 40px; display: flex; gap: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); align-items: center; }
-        .tool-btn { width: 75px; height: 75px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; border: 4px solid #eee; transition: 0.2s; background: #fff; }
-        .tool-btn.selected { border-color: var(--primary-color); transform: scale(1.15); background: #fff5f5; z-index: 2; }
-        .piping-bag-svg { width: 55px; height: 55px; }
+        /* [변경] 조작부를 우측 하단으로 이동 및 수직 배치 */
+        .side-controls { 
+            position: absolute; right: 20px; bottom: 180px; 
+            display: flex; flex-direction: column; align-items: flex-end; gap: 15px; z-index: 50; 
+        }
+        .palette { 
+            background: white; padding: 15px; border-radius: 30px; 
+            display: flex; flex-direction: column; gap: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); align-items: center; 
+        }
+        .tool-btn { width: 70px; height: 70px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; border: 4px solid #eee; transition: 0.2s; background: #fff; }
+        .tool-btn.selected { border-color: var(--primary-color); transform: scale(1.1); background: #fff5f5; }
+        .piping-bag-svg { width: 50px; height: 50px; }
 
-        #music-toggle { width: 60px; height: 60px; background: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 30px; border: 3px solid #eee; }
+        #music-toggle { width: 65px; height: 65px; background: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 30px; border: 3px solid #eee; }
         
-        #item-tray { width: 100%; height: 180px; background: rgba(255,255,255,0.95); display: flex; justify-content: space-evenly; align-items: center; position: absolute; bottom: 0; z-index: 40; border-top: 6px solid var(--primary-color); }
+        #item-tray { width: 100%; height: 160px; background: rgba(255,255,255,0.95); display: flex; justify-content: space-evenly; align-items: center; position: absolute; bottom: 0; z-index: 40; border-top: 5px solid var(--primary-color); }
         .item { cursor: grab; display: flex; flex-direction: column; align-items: center; transition: 0.2s; }
-        .item-icon { font-size: 70px; }
+        .item-icon { font-size: 60px; }
 
-        #photo-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; flex-direction: column; align-items: center; justify-content: center; }
+        #photo-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; flex-direction: column; align-items: center; justify-content: center; }
+        .popup-inner { background: white; padding: 20px; border-radius: 20px; text-align: center; max-width: 60%; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; flex-direction: column; align-items: center; }
+        #captured-image { max-width: 100%; max-height: 50vh; border-radius: 15px; border: 2px solid #eee; }
+        .popup-btn { margin-top: 20px; padding: 15px 40px; font-size: 28px; background: #d32f2f; color: white; border: none; border-radius: 15px; cursor: pointer; font-family: 'Jua'; box-shadow: 0 6px 0 #8e0000; }
     </style>
 </head>
 <body>
@@ -75,7 +85,7 @@
             <div class="notice-title">🎅 꾸미기 방법</div>
             <ul class="notice-list">
                 <li>1. 장식물을 <span class="highlight-text">드래그</span> 해서 올리거나, 짤주머니로 꾸며보세요!</li>
-                <li>2. 짤주머니 사용 후 <span style="font-size:30px;">✋</span> 을 눌러야 <span class="highlight-text">장식물 꾸미기</span>가 가능해집니다.</li>
+                <li>2. 짤주머니 사용 후 <span style="font-size:25px;">✋</span> 을 눌러야 <span class="highlight-text">장식물 꾸미기</span>가 가능해집니다.</li>
                 <li>3. 케이크를 <span class="highlight-text">이리 저리 돌려서</span> 꾸며보세요.</li>
             </ul>
         </div>
@@ -84,7 +94,7 @@
     <div id="main-content" style="flex:1; position:relative;">
         <div id="canvas-container" style="width:100%; height:100%;"></div>
         
-        <div class="top-controls">
+        <div class="side-controls">
             <div id="music-toggle" onclick="toggleMusic()">🎵</div>
             <div class="palette">
                 <div class="tool-btn" onclick="setDrawTool('#d32f2f', this)"><svg class="piping-bag-svg" viewBox="0 0 100 100"><path fill="#d32f2f" d="M20,80 L40,95 L60,95 L80,80 L50,10 Z"/><circle fill="#fff" cx="50" cy="85" r="5"/></svg></div>
@@ -94,7 +104,7 @@
                 <div class="tool-btn" onclick="setDrawTool('#fff', this)"><svg class="piping-bag-svg" viewBox="0 0 100 100"><path fill="#fff" stroke="#ccc" stroke-width="2" d="M20,80 L40,95 L60,95 L80,80 L50,10 Z"/><circle fill="#ccc" cx="50" cy="85" r="5"/></svg></div>
                 <div class="tool-btn selected" onclick="setDrawTool(null, this)" style="font-size:35px;">✋</div>
             </div>
-            <button id="finish-btn" onclick="finishGame()" style="padding:15px 30px; font-size:25px; background:#388e3c; color:white; border:none; border-radius:15px; cursor:pointer; font-family:'Jua'; box-shadow: 0 6px 0 #1b5e20;">✨ 완성!</button>
+            <button id="finish-btn" onclick="finishGame()" style="padding:15px 35px; font-size:28px; background:#388e3c; color:white; border:none; border-radius:15px; cursor:pointer; font-family:'Jua'; box-shadow: 0 6px 0 #1b5e20;">✨ 완성!</button>
         </div>
 
         <div id="item-tray">
@@ -118,7 +128,7 @@
 </div>
 
 <div id="screen-select" class="screen">
-    <h2 style="font-size: 45px; color: #c62828; margin-bottom:30px;">어떤 빵으로 만들까요?</h2>
+    <h2 style="font-size: 38px; color: #c62828; margin-bottom:25px;">어떤 빵으로 만들까요?</h2>
     <div class="cake-grid">
         <div class="cake-option" onclick="selectCake(0xFFFDD0)"><span>🎂</span>생크림</div>
         <div class="cake-option" onclick="selectCake(0x5D4037)"><span>🍫</span>초코</div>
@@ -128,10 +138,10 @@
 </div>
 
 <div id="photo-popup">
-    <div style="background:white; padding:30px; border-radius:20px; text-align:center; max-width:80%;">
-        <img id="captured-image" style="max-width:100%; border-radius:15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
-        <h2 style="font-size:35px; color:#c62828; margin-top:20px;">🎄 정말 멋진 케이크네요! 🎄</h2>
-        <button onclick="location.reload()" style="padding:15px 40px; font-size:25px; background:#d32f2f; color:white; border:none; border-radius:15px; cursor:pointer; font-family:'Jua'; box-shadow:0 6px 0 #8e0000;">다시 만들기</button>
+    <div class="popup-inner">
+        <img id="captured-image" src="">
+        <h2 style="font-size:28px; color:#c62828; margin-top:15px;">🎄 정말 멋진 케이크네요! 🎄</h2>
+        <button class="popup-btn" onclick="location.reload()">다시 만들기</button>
     </div>
 </div>
 
@@ -144,41 +154,28 @@
     const bgm = document.getElementById('bgm');
     const successSound = document.getElementById('success-sound');
 
-    // [소리 재생 안정화] 소리 잠금 해제 함수
     function unlockAudio() {
-        if (!audioCtx) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
     }
 
     function playDing() {
         unlockAudio();
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(1320, audioCtx.currentTime);
+        osc.type = 'sine'; osc.frequency.setValueAtTime(1320, audioCtx.currentTime);
         gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.4);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(); osc.stop(audioCtx.currentTime + 0.4);
     }
 
     function startExperience() {
         unlockAudio();
-        // 배경음악 강제 재생 시도
         bgm.volume = 0.2;
         const playBgm = () => {
-            bgm.play().then(() => {
-                document.getElementById('music-toggle').innerText = '🎵';
-            }).catch(() => {
-                console.log("재시도 중...");
-                setTimeout(playBgm, 500); // 실패 시 0.5초 후 재시도
-            });
+            bgm.play().then(() => { document.getElementById('music-toggle').innerText = '🎵'; })
+            .catch(() => { setTimeout(playBgm, 500); });
         };
         playBgm();
         goToStep(2);
@@ -214,11 +211,9 @@
         container.appendChild(renderer.domElement);
         scene.add(new THREE.AmbientLight(0xffffff, 0.8));
         const light = new THREE.DirectionalLight(0xffffff, 0.5);
-        light.position.set(10, 40, 20);
-        scene.add(light);
+        light.position.set(10, 40, 20); scene.add(light);
         controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.enableZoom = false;
+        controls.enableDamping = true; controls.enableZoom = false;
         renderer.domElement.addEventListener('dragover', e => e.preventDefault());
         renderer.domElement.addEventListener('drop', handleDrop);
         const start = (e) => { pointerDown = true; if(isDrawing) handleInput(e); };
@@ -238,16 +233,13 @@
         cakeMesh = new THREE.Mesh(new THREE.CylinderGeometry(15, 15, 12, 64), new THREE.MeshStandardMaterial({ color: color, roughness: 0.8 }));
         scene.add(cakeMesh);
         const plate = new THREE.Mesh(new THREE.CylinderGeometry(18, 18, 1, 64), new THREE.MeshStandardMaterial({color:0xffffff}));
-        plate.position.y = -6.5;
-        scene.add(plate);
+        plate.position.y = -6.5; scene.add(plate);
     }
 
     function setDrawTool(color, btn) {
         document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
-        drawColor = color;
-        isDrawing = !!color;
-        controls.enabled = !isDrawing;
+        drawColor = color; isDrawing = !!color; controls.enabled = !isDrawing;
     }
 
     function handleInput(e) {
@@ -280,8 +272,7 @@
             const item = new THREE.Mesh(new THREE.PlaneGeometry(8, 8), new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(canvas), transparent: true, alphaTest: 0.5 }));
             item.position.copy(hits[0].point).add(hits[0].face.normal.multiplyScalar(1.5));
             item.lookAt(hits[0].point.clone().add(hits[0].face.normal));
-            scene.add(item);
-            playDing();
+            scene.add(item); playDing();
         }
     }
 
@@ -289,9 +280,7 @@
 
     function finishGame() {
         unlockAudio();
-        // 폭죽 효과
-        const duration = 5 * 1000;
-        const animationEnd = Date.now() + duration;
+        const duration = 4 * 1000; const animationEnd = Date.now() + duration;
         const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 3000 };
         const randomInRange = (min, max) => Math.random() * (max - min) + min;
 
@@ -303,13 +292,8 @@
             confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
         }, 250);
 
-        // 환호성 소리 재생 (안정적인 링크로 교체)
-        successSound.currentTime = 0;
-        successSound.volume = 0.8;
-        successSound.play().catch(() => {
-            console.log("환호성 재생 실패, 재시도 중...");
-            setTimeout(() => successSound.play(), 500);
-        });
+        successSound.currentTime = 0; successSound.volume = 0.7;
+        successSound.play().catch(() => {});
 
         setTimeout(() => {
             const imgData = renderer.domElement.toDataURL("image/png");
